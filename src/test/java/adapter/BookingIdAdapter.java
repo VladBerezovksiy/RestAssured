@@ -12,7 +12,6 @@ public class BookingIdAdapter extends BaseAdapter {
     public Booking getBookingById(int id) {
         setEndpoint(String.format(Endpoints.BOOKING_ID_URN_PATTERN, id));
         return get()
-                .log().body()
                 .extract()
                 .body()
                 .as(Booking.class);
@@ -21,8 +20,6 @@ public class BookingIdAdapter extends BaseAdapter {
     public Booking updateBookingById(int id) {
         setEndpoint(String.format(Endpoints.BOOKING_ID_URN_PATTERN, id));
         return put(new Booking())
-                //.cookie(token)
-                .log().body()
                 .extract()
                 .body()
                 .as(Booking.class);
@@ -30,8 +27,7 @@ public class BookingIdAdapter extends BaseAdapter {
 
     public Booking partialUpdateBookingById(int id) {
         setEndpoint(String.format(Endpoints.BOOKING_ID_URN_PATTERN, id));
-        return patch(Booking.builder().firstname("Lol").lastname("Rm").build())
-                //.cookie(token)
+        return patch()
                 .log().body()
                 .extract()
                 .body()
@@ -41,6 +37,5 @@ public class BookingIdAdapter extends BaseAdapter {
     public void deleteBookingById(int id) {
         setEndpoint(String.format(Endpoints.BOOKING_ID_URN_PATTERN, id));
         delete();
-                //.cookie(token);
     }
 }

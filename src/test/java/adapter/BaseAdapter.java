@@ -3,6 +3,7 @@ package adapter;
 import com.google.gson.Gson;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.http.Cookie;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
@@ -16,6 +17,7 @@ public abstract class BaseAdapter {
 
     private String endpoint;
     protected Gson gson = new Gson();
+    private Cookie cookie = new Cookie.Builder("token","536099f93d8cd3c").build();
 
     public BaseAdapter(String endpoint) {
         this.endpoint = endpoint;
@@ -23,7 +25,7 @@ public abstract class BaseAdapter {
 
     RequestSpecification requestSpec = new RequestSpecBuilder()
             .setContentType(ContentType.JSON)
-            .addCookie("token=f1c7bb8c1092e0b")
+            .addCookie(cookie)
             .setBaseUri("http://localhost:3001/")
             .build();
 
@@ -66,10 +68,9 @@ public abstract class BaseAdapter {
                 .statusCode(HttpStatus.SC_OK);
     }
 
-    public ValidatableResponse patch(Booking model) {
+    public ValidatableResponse patch() {
         return given()
                 .spec(requestSpec)
-                .body(model)
                 .when()
                 .patch(endpoint)
                 .then()

@@ -20,7 +20,7 @@ public class AdapterTest extends BaseTest {
 
     @Test
     public void getBookingIdTest() {
-        assertThat(http.bookingId.getBookingById(5), notNullValue());
+        assertThat(http.bookingId.getBookingById(6), notNullValue());
     }
 
     @Test
@@ -33,23 +33,20 @@ public class AdapterTest extends BaseTest {
 
     @Test
     public void updateBookingIdTest() {
-//        String token = "token=f1c7bb8c1092e0b";
         Booking expectedBooking = http.bookingId.updateBookingById(6);
-        Booking actualBooking = http.bookingId.getBookingById(5);
+        Booking actualBooking = http.bookingId.getBookingById(6);
         assertThat(expectedBooking, equalTo(actualBooking));
     }
 
     @Test
     public void partialUpdateBookingIdTest() {
-//        String token = http.auth.getToken();
-        Booking expectedBooking = http.bookingId.partialUpdateBookingById(5);
-        Booking actualBooking = http.bookingId.getBookingById(5);
+        Booking expectedBooking = http.bookingId.partialUpdateBookingById(7);
+        Booking actualBooking = http.bookingId.getBookingById(7);
         assertThat(expectedBooking, equalTo(actualBooking));
     }
 
     @Test
     public void deleteBookingTest() {
-//        String token = http.auth.getToken();
         http.bookingId.deleteBookingById(5);
     }
 }
