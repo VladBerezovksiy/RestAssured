@@ -8,6 +8,7 @@ import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import lombok.Data;
 import model.Booking;
+import model.BookingPartialData;
 import org.apache.http.HttpStatus;
 
 import static io.restassured.RestAssured.given;
@@ -55,7 +56,16 @@ public abstract class BaseAdapter {
                 .when()
                 .get(endpoint)
                 .then()
-                .statusCode(HttpStatus.SC_OK);
+                .statusCode(HttpStatus.SC_METHOD_NOT_ALLOWED);
+    }
+
+    public ValidatableResponse get(int Id) {
+        return given()
+                .spec(requestSpec)
+                .when()
+                .get(endpoint)
+                .then()
+                .statusCode(Id);
     }
 
     public ValidatableResponse put(Booking model) {
@@ -68,9 +78,10 @@ public abstract class BaseAdapter {
                 .statusCode(HttpStatus.SC_OK);
     }
 
-    public ValidatableResponse patch() {
+    public ValidatableResponse patch(BookingPartialData model) {
         return given()
                 .spec(requestSpec)
+                .body(model)
                 .when()
                 .patch(endpoint)
                 .then()

@@ -47,6 +47,7 @@ public class AdapterTest extends BaseTest {
 
     @Test
     public void deleteBookingTest() {
-        http.bookingId.deleteBookingById(5);
+        http.bookingId.deleteBookingById(7);
+        assertThat(http.bookingId.getEmptyById(7), equalTo("Not Found"));
     }
 }
